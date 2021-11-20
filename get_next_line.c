@@ -11,54 +11,66 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+ #include <fcntl.h>
 
-char *fin_line_trouve(char *file_read, int count_octe , char * buf)
+char *trouve_new_line(char *buf)
 {
-    char    *new_buf;
-    int     i;
-    int     j;
+    char *new_buf;
+    int i;
+    char *fin_tab;
 
     i = 0;
-    while(buf[j] != '\n')
-        j++;
-    while(buf[i] != '\n' && i < count_octe)
+    new_buf = (char *)malloc(sizeof(char) *((ft_strlen(buf) + 2)));
+    if(!new_buf)
+        return (NULL);
+    while(i < ft_strlen(buf) && buf[i] <= '\n')
     {
         new_buf[i] = buf[i];
+        i++;
     }
-
-
+    new_buf[i] = '\0';
+    fin_tab = ft_strdup(new_buf);
+    if(!fin_tab)
+        return (NULL);
+    free (buf);
+    free (new_buf);
+    return (fin_tab);
 }
 
 char    *get_next_line(int fd)
 {
     char            *buf;
     static char     *file_read;
-    char            *new_file;
-    int             i;
     int             count_octe;
-    
+
+
+    count_octe = 1;
+    buf = NULL;
     if(BUFFER_SIZE <= 0 || fd < 0)
         return (NULL);
-    buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1)); 
+ 
+    while(!ft_strchr(buf, '\n'))
+    {
+        free(buf);
+        buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
         if(!buf)
             return(NULL);
-    count_octe = read(fd, buf, BUFFER_SIZE);
-    buf[count_octe] = '\0';
-    if(!strchr(buf, '\n') &&  count_octe > 0)
-    {
-        file_read = (char *)malloc(sizeof(char) * (ft_strlen(buf) + 1));
-        while(i < BUFFER_SIZE)
-        {
-            file_read[i] = buf[i];
-            i++;
-        }
-        file_read[i] = '\0';
-        free(buf);
+        count_octe += read(fd, buf, BUFFER_SIZE);
+        buf[count_octe] = '\0'; 
+        if(ft_strchr(buf, '\n'))
+            break;
+        file_read = ft_strjoin(file_read, buf);
     }
-    else    
-        file_read = ft_strdup(fin_line_trouve(file_read, count_octe));
-    //file_read = ft_strjoin(file_read, buf);
-    
+    file_read = ft_strjoin(file_read, trouve_new_line(&buf));
+    return(file_read);
+}
 
+int main()
+{
+    int fd;
+
+    fd = open("get_next_line", O_RDONLY);
+    printf("%s", get_next_line(fd));
 
 }
