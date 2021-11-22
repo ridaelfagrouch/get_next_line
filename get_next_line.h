@@ -15,12 +15,16 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
+# include <stdio.h>
 
 size_t	ft_strlen(char *str);
 char	*ft_strdup(char *str);
 char	*ft_create_str(int len);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
-
+char	*if_star(void);
+size_t	new_lenght(char *str, size_t len, unsigned int new_start);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 #endif
