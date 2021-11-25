@@ -87,20 +87,16 @@ char	*ft_strjoin(char *s1, char *s2)
 }
 //ft_strchr**************************************************
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr(char *s, char c)
 {
 	int		i;
-	char	*str;
-	char	x;
 
 	i = 0;
-	x = (char) c;
-	str = (char *) s;
-	while (str[i] >= 0)
+	while (s[i] >= 0)
 	{
-		if (str[i] == x)
-			return (&str[i]);
-		else if (str[i] == 0)
+		if (s[i] == c)
+			return (&s[i]);
+		else if (s[i] == 0)
 			break ;
 		i++;
 	}
@@ -121,7 +117,7 @@ char	*if_star(void)
 	return (ptr);
 }
 
-size_t	new_lenght(char *str, size_t len, unsigned int new_start)
+size_t	new_lenght(char *str, unsigned int len, unsigned int new_start)
 {
 	size_t	i;
 
@@ -134,26 +130,24 @@ size_t	new_lenght(char *str, size_t len, unsigned int new_start)
 	return (i);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, unsigned int len)
 {
 	char			*ptr;
-	char			*str;
-	size_t			i;
+	unsigned int	i;
 	unsigned int	new_start;
 
 	i = 0;
 	ptr = NULL;
 	if (!s)
 		return (NULL);
-	str = (char *) s;
 	new_start = start;
 	if (start > ft_strlen(s))
 		return (if_star());
-	ptr = (void *)malloc((new_lenght(str, len, new_start) + 1) * sizeof(char));
+	ptr = (void *)malloc((new_lenght(s, len, new_start) + 1) * sizeof(char));
 	if (!ptr)
 		return (0);
-	while ((i < len) && (str[start] != '\0'))
-		ptr[i++] = str[start++];
+	while ((i < len) && (s[start] != '\0'))
+		ptr[i++] = s[start++];
 	ptr[i] = '\0';
 	return (ptr);
 }
@@ -176,4 +170,46 @@ void	*ft_calloc(size_t count, size_t size)
 		i++;
 	}
 	return ((void *) res);
+}
+
+//********************************
+char *ft_strcat(char *s1, char *s2)
+{
+	int len;
+	char *str;
+	int i;
+	int j;
+
+	len = ft_strlen(s1) + ft_strlen(s2);
+	i = 0;
+	j = 0;
+	str = (char *)ft_calloc(len + 1, sizeof(char));
+	while(s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while(s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	return(str);
+}
+
+//******************************************************
+
+int	ft_strchr2(char *s, char c)
+{
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
 }
