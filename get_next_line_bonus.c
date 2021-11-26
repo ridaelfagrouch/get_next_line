@@ -19,8 +19,8 @@ static unsigned int ft_check_len(char *str)
     i = 0;
     while(str[i] != '\n' && str[i])
         i++;
-    if (strlen(str) == i)
-        return (strlen(str) - 1);
+    if (ft_strlen(str) == i)
+        return (ft_strlen(str) - 1);
     return (i);
 }
 
@@ -28,7 +28,7 @@ char    *get_next_line(int fd)
 {
     char            *buf;
     char            *str;
-    static char     *file_read;
+    static char     *file_read[1024];
     char            *fin_tab;
     int             count_octe;
     char            *ptr;
@@ -40,18 +40,19 @@ char    *get_next_line(int fd)
     buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
     if(!buf)
         return (NULL);
+    
     ft_bzero(buf, (BUFFER_SIZE + 1));
     str = (char *)malloc(2 * sizeof(char));
     if(!str)
         return (NULL);
     ft_bzero(str, 2);
-    if(file_read)
+    if(file_read[fd])
     {
         ptr = str;
-        str = ft_strjoin(file_read, str);
-        free(file_read);
+        str = ft_strjoin(file_read[fd], str);
+        free(file_read[fd]);
         free(ptr);
-        file_read = NULL;
+        file_read[fd] = NULL;
     }
     while(ft_strchr2(str, '\n'))
     {
@@ -60,9 +61,7 @@ char    *get_next_line(int fd)
         {
             if(*str)
                 break ;
-            free (buf);
-            free (str);
-            return(NULL);
+            return(free(buf), free(str), NULL);
         }
         ptr = str;
         str = ft_strjoin(str, buf);
@@ -70,11 +69,9 @@ char    *get_next_line(int fd)
         ft_bzero(buf, BUFFER_SIZE);
     } 
     fin_tab = ft_substr(str, 0, ft_check_len(str) + 1);
-    if (strlen(fin_tab) != strlen(str))
-        file_read = ft_strdup(str + ft_check_len(str) + 1);
-    free(buf);
-    free (str);
-    return(fin_tab);
+    if (ft_strlen(fin_tab) != ft_strlen(str))
+        file_read[fd] = ft_substr(str, ft_check_len(str) + 1, ft_strlen(str + ft_check_len(str) + 1));
+    return(free(buf), free (str), fin_tab);
 }
 /*
 int main()

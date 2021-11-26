@@ -19,8 +19,8 @@ static unsigned int ft_check_len(char *str)
     i = 0;
     while(str[i] != '\n' && str[i])
         i++;
-    if (strlen(str) == i)
-        return (strlen(str) - 1);
+    if (ft_strlen(str) == i)
+        return (ft_strlen(str) - 1);
     return (i);
 }
 
@@ -60,21 +60,17 @@ char    *get_next_line(int fd)
         {
             if(*str)
                 break ;
-            free (buf);
-            free (str);
-            return(NULL);
+            return(free(buf), free(str), NULL);
         }
         ptr = str;
         str = ft_strjoin(str, buf);
         free(ptr);
         ft_bzero(buf, BUFFER_SIZE);
-    } 
+    }
     fin_tab = ft_substr(str, 0, ft_check_len(str) + 1);
-    if (strlen(fin_tab) != strlen(str))
-        file_read = ft_strdup(str + ft_check_len(str) + 1);
-    free(buf);
-    free (str);
-    return(fin_tab);
+    if (ft_strlen(fin_tab) != ft_strlen(str))
+        file_read = ft_substr(str, ft_check_len(str) + 1, ft_strlen(str + ft_check_len(str) + 1));
+    return(free(buf), free (str), fin_tab);
 }
 
 // int main()

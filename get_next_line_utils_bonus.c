@@ -24,42 +24,6 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(char *str)
-{
-	char	*res;
-	int		len;
-	int		i;
-
-	res = NULL;
-	i = 0;
-	len = ft_strlen(str);
-	res = (char *)malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (NULL);
-	while (str[i])
-	{
-		res[i] = str[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
-//ft_create_str function used in strjoin
-
-char	*ft_create_str(int len)
-{
-	char	*str;
-	int		i;
-
-	str = NULL;
-	i = 0;
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (0);
-	return (str);
-}
-
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
@@ -70,7 +34,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (0);
 	len = ft_strlen(s1) + ft_strlen(s2);
-	str = ft_create_str(len);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (0);
 	if (!str)
 		return (0);
 	i = 0;
@@ -99,33 +65,27 @@ char	*if_star(void)
 	return (ptr);
 }
 
-size_t	new_lenght(char *str, unsigned int len, unsigned int new_start)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[new_start] && i < len)
-	{
-		i++;
-		new_start++;
-	}
-	return (i);
-}
-
 char	*ft_substr(char *s, unsigned int start, unsigned int len)
 {
 	char			*ptr;
 	unsigned int	i;
 	unsigned int	new_start;
+	size_t			j;
 
 	i = 0;
+	j = 0;
 	ptr = NULL;
 	if (!s)
 		return (NULL);
 	new_start = start;
 	if (start > ft_strlen(s))
 		return (if_star());
-	ptr = (void *)malloc((new_lenght(s, len, new_start) + 1) * sizeof(char));
+	while (s[new_start] && j < len)
+	{
+		j++;
+		new_start++;
+	}
+	ptr = (void *)malloc((j + 1) * sizeof(char));
 	if (!ptr)
 		return (0);
 	while ((i < len) && (s[start] != '\0'))
