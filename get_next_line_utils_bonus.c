@@ -85,24 +85,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[i] = '\0';
 	return (str);
 }
-//ft_strchr**************************************************
-
-char	*ft_strchr(char *s, char c)
-{
-	int		i;
-
-	i = 0;
-	while (s[i] >= 0)
-	{
-		if (s[i] == c)
-			return (&s[i]);
-		else if (s[i] == 0)
-			break ;
-		i++;
-	}
-	return (0);
-}
-
 //ft_substr***********************************************************
 
 char	*if_star(void)
@@ -150,26 +132,6 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 		ptr[i++] = s[start++];
 	ptr[i] = '\0';
 	return (ptr);
-}
-
-//ft_calloc*****************************************************
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	size_t		i;
-	char		*res;
-
-	res = NULL;
-	i = 0;
-	res = malloc(count * size);
-	if (!res)
-		return (0);
-	while (i < count * size)
-	{
-		res[i] = 0;
-		i++;
-	}
-	return ((void *) res);
 }
 //******************************************************
 

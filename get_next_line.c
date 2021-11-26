@@ -37,13 +37,14 @@ char    *get_next_line(int fd)
     count_octe = 1;
     if(BUFFER_SIZE <= 0 || fd < 0)
         return (0);
-    buf = (char *)ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+    buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
     if(!buf)
         return (NULL);
-    str = (char *)ft_calloc(1, sizeof(char));
+    ft_bzero(buf, (BUFFER_SIZE + 1));
+    str = (char *)malloc(2 * sizeof(char));
     if(!str)
         return (NULL);
-    str[0] = 0;
+    ft_bzero(str, 2);
     if(file_read)
     {
         ptr = str;
@@ -75,22 +76,20 @@ char    *get_next_line(int fd)
     free (str);
     return(fin_tab);
 }
-/*
-int main()
-{
-    int fd;
-    int i;
-    char    *output;
 
-    i = 15;
-    fd = open("42_test.txt", O_RDONLY);
-    output = get_next_line(fd);
-    while(i > 0)
-    {
-        printf("%s", output);
-        if(output)
-            output = get_next_line(fd);
-        i--;
-     }
-}
-*/
+// int main()
+// {
+//     int fd;
+//     int i;
+//     char    *output;
+
+//     i = 100000000;
+//     fd = open("42_test.txt", O_RDONLY);
+//     output = get_next_line(fd);
+//     while(i > 0 && output)
+//     {
+//         printf("%s", output);
+//         output = get_next_line(fd);
+//         i--;
+//     }
+// }
