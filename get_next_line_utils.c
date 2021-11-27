@@ -6,7 +6,7 @@
 /*   By: rel-fagr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 15:10:31 by rel-fagr          #+#    #+#             */
-/*   Updated: 2021/11/18 15:10:52 by rel-fagr         ###   ########.fr       */
+/*   Updated: 2021/11/27 12:38:08 by rel-fagr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[i] = '\0';
 	return (str);
 }
+
 //ft_substr***********************************************************
 
 char	*if_star(void)
@@ -94,21 +95,6 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 		ptr[i++] = s[start++];
 	ptr[i] = '\0';
 	return (ptr);
-}
-//******************************************************
-
-int	ft_strchr2(char *s, char c)
-{
-	int		i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (0);
-		i++;
-	}
-	return (1);
 }
 //bzero**************************************************
 
