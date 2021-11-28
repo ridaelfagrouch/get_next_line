@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*ft_creat_str(void)
+static char	*ft_creat_str(void)
 {
 	char	*str;
 
@@ -23,7 +23,7 @@ char	*ft_creat_str(void)
 	return (str);
 }
 
-int	ft_strchr2(char *s, char c)
+static int	ft_strchr2(char *s, char c)
 {
 	int		i;
 
@@ -37,7 +37,7 @@ int	ft_strchr2(char *s, char c)
 	return (1);
 }
 
-unsigned int	len(char *str)
+static unsigned int	len(char *str)
 {
 	unsigned int	i;
 
@@ -49,7 +49,7 @@ unsigned int	len(char *str)
 	return (i);
 }
 
-char	*ft_read_buf(char *str, int *fd, char *ptr)
+static char	*ft_read_buf(char *str, int *fd, char *ptr)
 {
 	int		count_octe;
 	char	*buf;
@@ -105,20 +105,3 @@ char	*get_next_line(int fd)
 		stc = ft_substr(str, len(str) + 1, ft_strlen(str + len(str) + 1));
 	return (free (str), fin_tab);
 }
-
-// int main()
-// {
-//     int fd;
-//     int i;
-//     char    *output;
-
-//     i = 100000000;
-//     fd = open("42_test.txt", O_RDONLY);
-//     output = get_next_line(fd);
-//     while(i > 0 && output)
-//     {
-//         printf("%s", output);
-//         output = get_next_line(fd);
-//         i--;
-//     }
-// }
