@@ -23,6 +23,7 @@ size_t	ft_strlen(char *str)
 	}
 	return (i);
 }
+//ft_strjoin**********************************************************
 
 char	*ft_strjoin(char *s1, char *s2)
 {
